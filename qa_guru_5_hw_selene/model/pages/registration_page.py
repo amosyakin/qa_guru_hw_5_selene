@@ -32,14 +32,18 @@ class RegistrationPage:
         browser.element('#dateOfBirthInput').perform(command.js.click)
         browser.element('.react-datepicker__month-select').click().element(by.text(user.birth_month)).click()
         browser.element('.react-datepicker__year-select').click().element(by.text(user.birth_year)).click()
-        browser.element('.react-datepicker__week').element(by.text('01')).click()
-        self.subjects_input.type(user.subjects)
+        browser.element(
+            f'.react-datepicker__day--0{user.birth_day}:not(.react-datepicker__day--outside-month)'
+        ).click()
+        self.subjects_input.type(user.short_subject())
         browser.element(by.text(user.subjects)).perform(command.js.click)
         browser.element(by.text(user.hobbies)).perform(command.js.click)
         self.up_picture.send_keys(path(user.picture_path))
         self.current_address.type(user.address)
-        self.state.click().element(by.text(user.state)).click()
-        self.city.click().element(by.text(user.city)).click()
+        self.state.click()
+        browser.element(by.text(user.state)).perform(command.js.click)
+        self.city.click()
+        browser.element(by.text(user.city)).perform(command.js.click)
         self.submit.click()
 
     def should_have_registered(
@@ -58,81 +62,3 @@ class RegistrationPage:
                 user.address,
                 user.state_and_city()))
         self.close_large_modal.should(have.text('Close'))
-
-    #     registration_page.should_registrated_user_with(
-    #         'Ivan Ivanov',
-    #         'ivanivanov@mail.com',
-    #         'Male',
-    #         '9876543210',
-    #         '01 January,2000',
-    #         'English',
-    #         'Music',
-    #         'picture.jpg',
-    #         'Red Square, 1',
-    #         'Haryana Karnal'
-    #     )
-    #
-    #
-    #
-    #
-    #
-    #
-    # def fill_user_gender(self, value):
-    #     self.click_element_by_text(value)
-    #
-    # def fill_user_number(self, value):
-    #     self.user_number.type(value)
-    #
-    # def fill_date_of_birth(self, year, month, day):
-    #     browser.element('#dateOfBirthInput').perform(command.js.scroll_into_view)
-    #     browser.element('#dateOfBirthInput').perform(command.js.click)
-    #     browser.element('.react-datepicker__month-select').click().element(by.text(month)).click()
-    #     browser.element('.react-datepicker__year-select').click().element(by.text(year)).click()
-    #     browser.element('.react-datepicker__week').element(by.text(day)).click()
-    #
-    # def input_subjects(self, short_value, full_value):
-    #     self.subjects_input.type(short_value)
-    #     self.click_element_by_text(full_value)
-    #
-    # def click_element_by_text(self, value):
-    #     browser.element(by.text(value)).perform(command.js.click)
-    #
-    # def select_hobbies(self, value):
-    #     self.click_element_by_text(value)
-    #
-    # def upload_picture(self, value):
-    #     self.up_picture.send_keys(path(value))
-    #
-    # def fill_address(self, value):
-    #     self.current_address.type(value)
-    #
-    # def select_state(self, value):
-    #     browser.element('#state').perform(command.js.scroll_into_view)
-    #     self.state.click().element(by.text(value)).click()
-    #
-    # def select_city(self, value):
-    #     self.city.click().element(by.text(value)).click()
-    #
-    # def click_submit_button(self):
-    #     self.submit.click()
-    #
-    # def should_registrated_user_with(
-    #         self, full_name, email, gender, phone_number, date_of_birth,
-    #         subjects, hobbies, picture, address, state_and_city):
-    #     browser.element('.table').all('td').even.should(
-    #         have.exact_texts(
-    #             full_name,
-    #             email,
-    #             gender,
-    #             phone_number,
-    #             date_of_birth,
-    #             subjects, hobbies,
-    #             picture,
-    #             address,
-    #             state_and_city))
-    #
-    # def should_finish_form_title(self, value):
-    #     browser.element('.modal-title').should(have.text(value))
-    #
-    # def should_finish_form_button(self, value):
-    #     self.close_large_modal.should(have.text(value))

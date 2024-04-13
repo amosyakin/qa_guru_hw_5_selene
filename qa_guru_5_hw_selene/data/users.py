@@ -25,4 +25,7 @@ class User:
         return f'{self.state} {self.city}'
 
     def date_of_birth(self):
-        return f'{self.birth_day} {self.birth_month}, {self.birth_year}'
+        return f'{self.birth_day} {self.birth_month},{self.birth_year}'
+
+    def short_subject(self) -> str:
+        return self.subjects[:2]
