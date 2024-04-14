@@ -1,6 +1,6 @@
 from selene import browser, by, command, have
 
-from qa_gure_5_hw_selene.resources import path
+from qa_gure_5_hw_selene import resources
 
 
 class RegistrationPage:
@@ -43,9 +43,10 @@ class RegistrationPage:
         browser.element('.react-datepicker__year-select').click().element(by.text(year)).click()
         browser.element('.react-datepicker__week').element(by.text(day)).click()
 
-    def input_subjects(self, short_value, full_value):
+    def input_subjects(self, value):
+        short_value = value[:2]
         self.subjects_input.type(short_value)
-        self.click_element_by_text(full_value)
+        self.click_element_by_text(value)
 
     def click_element_by_text(self, value):
         browser.element(by.text(value)).perform(command.js.click)
@@ -54,7 +55,7 @@ class RegistrationPage:
         self.click_element_by_text(value)
 
     def upload_picture(self, value):
-        self.up_picture.send_keys(path(value))
+        self.up_picture.set_value(resources.path(value))
 
     def fill_address(self, value):
         self.current_address.type(value)
