@@ -1,7 +1,7 @@
 from selene import browser, by, command, have
 
+from qa_guru_5_hw_selene import resources
 from qa_guru_5_hw_selene.data.users import User
-from qa_guru_5_hw_selene.resources import path
 
 
 class RegistrationPage:
@@ -38,7 +38,7 @@ class RegistrationPage:
         self.subjects_input.type(user.short_subject())
         browser.element(by.text(user.subjects)).perform(command.js.click)
         browser.element(by.text(user.hobbies)).perform(command.js.click)
-        self.up_picture.send_keys(path(user.picture_path))
+        self.up_picture.set_value(resources.path(user.picture_path))
         self.current_address.type(user.address)
         self.state.click()
         browser.element(by.text(user.state)).perform(command.js.click)

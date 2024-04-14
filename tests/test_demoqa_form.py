@@ -1,5 +1,3 @@
-import os.path
-from selene import browser, have, command, by
 from qa_guru_5_hw_selene.data.users import User
 from qa_guru_5_hw_selene.model.pages.registration_page import RegistrationPage
 
